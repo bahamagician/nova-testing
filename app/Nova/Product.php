@@ -11,6 +11,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Product extends Resource
 {
+    public static $with = ['categories', 'images'];
+
     /**
      * The model the resource corresponds to.
      *
@@ -31,7 +33,7 @@ class Product extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title'
     ];
 
     /**
@@ -46,7 +48,7 @@ class Product extends Resource
             ID::make()->sortable(),
             Text::make('Title'),
             HasMany::make('Images'),
-            BelongsToMany::make('Categories')
+            BelongsToMany::make('Categories', 'category')->searchable()
         ];
     }
 

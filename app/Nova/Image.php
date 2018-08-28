@@ -3,11 +3,14 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsTo;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Image extends Resource
 {
+    public static $with = ['product'];
     /**
      * The model the resource corresponds to.
      *
@@ -20,7 +23,7 @@ class Image extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'url';
 
     /**
      * The columns that should be searched.
@@ -41,6 +44,8 @@ class Image extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('url'),
+            BelongsTo::make('Product')
         ];
     }
 

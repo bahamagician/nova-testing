@@ -6,10 +6,10 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsToMany;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Category extends Resource
 {
+    public static $with = ['products'];
     /**
      * The model the resource corresponds to.
      *
@@ -30,7 +30,7 @@ class Category extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'title'
     ];
 
     /**
@@ -44,7 +44,7 @@ class Category extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Title'),
-            BelongsToMany::make('Products')
+            BelongsToMany::make('Products')->searchable()
         ];
     }
 
